@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script src="jquery-3.5.1.js"></script>
+<title>개인 정보</title>
+<link rel="stylesheet" type="text/css" href="add.css">
+<style>
+.strength {
+	width: 100%;
+	font: 12px;
+	text-align: center;
+	text-decoration: underline;
+}
+
+.weak {
+	width: 100%;
+	font: 14px;
+	text-align: left;
+	white-space: normal;
+}
+
+ul li {
+	list-style: none;
+}
+</style>
+
+</head>
+<body>
+	<button id="button1">정렬</button>
+	<button id="button2">추가</button>
+	<button id="button3">숨김</button>
+	<button id="button4">색상변경</button>
+	<button id="button5">내용변경</button>
+	
+	<script>
+		$("#button1").on("click", function(){
+		
+			$("#name").css("text-align", "center");
+			$("#age").css("text-align", "center");
+			$("#blood").css("text-align", "center");
+			$("#hobby").css("text-align", "center");
+			$("#hp").css("text-align", "center");
+			$("#mail").css("text-align", "center");
+
+		})
+	
+
+		 $("#button2").on("click", function(){
+		 
+			var newRow = $("<tr class='new'></tr>").html("<td id='10year' colspan='5'>* 10년 후 나의 모습</td>");
+      		var newTextArea = $("<tr class='new2'></tr>").html("<td colspan='5'><textArea style='width:100%; height:300px'></textArea></td>");
+      		$("table").append(newRow);
+      		$("table").append(newTextArea);
+				
+		})
+
+		 $("#button3").on("click", function(){
+			 $(".new").hide();
+			 $(".new2").hide();
+						
+		})
+	
+
+		$("#button4").on("click", function(){
+						
+			$("#name2").css("background-color","gray");
+		 	$("#age2").css("background-color","gray");
+			$("#blood2").css("background-color","gray");
+			$("#hobby2").css("background-color","gray");
+			$("#hp2").css("background-color","gray");
+			$("#mail2").css("background-color","gray"); 
+						
+		})
+		
+
+		$("#button5").on("click",function(){
+			
+			var user={
+				age:"20",
+				hobby:"멍때리기",
+				strength:"외모",
+				weak:"마음" 
+			
+			}; 
+			
+			$('#ageContent').text(user.age);
+			$('#inputHobby').val(user.hobby); 
+			$('#str').text(user.strength);
+			$('#weak').text(user.weak); 
+			
+			/* var text= $('#ageContent').text();
+			$('#ageContent').text('20');
+			
+			var text= $('#hobby2').text();
+			$('#inputHobby').val('멍때리기'); 
+			
+			var text= $('#ageContent').text();
+			$('#str').text('외모');
+			
+			var text= $('#ageContent').text();
+			$('#weak').text('마음'); */
+		})
+
+	 		
+	 	$(function(){
+			$(".afterYear").on("keyup",function(){
+				
+				let area= $(".afterYear").val();
+				
+				if(area.length > 100){
+					alert('입력 가능한 글자수는 100자입니다');
+					
+				}
+				
+				let text = area.slice(0,100);
+				$('.afterYear').val(text);
+				
+				//console.log(area.length);
+				
+			})
+		}) 
+		
+
+	</script>
+
+	<table id="table1" border="1" style="border-collapse: collapse;">
+
+		<colgroup>
+
+		</colgroup>
+		<tr>
+			<td colspan="5">*기본정보(CSS 적용 시 인라인 스타일 방식 적용 )</td>
+		</tr>
+		<tr>
+			<td rowspan="3"><img src="image/picture.PNG" onclick="javascript: document.getElementsByTagName(tagname)('name').innerHTML = '전지현';"></td>
+			<th id="name" style="width: 10%; text-align: center;">이름</th>
+			<td id="name2" style="width: 30%; background-color: green;"> <span
+				  style="width: 100%;"> 이 지 헌</span>
+			</td>
+			<th id="age" style="width: 10%; text-align: center;">나이</th>
+
+			<td id="age2" style="background-color: yellow;">
+				<span id="ageContent">24세</span>
+			</td>
+
+		</tr>
+		<tr>
+
+			<th id="blood" style="text-align: right;">혈액형</th>
+			<td id="blood2"><select id="bloodtype">
+					<option value="A형" selected="selected">A형</option>
+					<option value="B형">B형</option>
+					<option value="AB형">AB형</option>
+					<option value="O형">O형</option>
+			</select></td>
+			<th id="hobby" style="text-align: right;">취미</th>
+			<td id="hobby2"><input id="inputHobby" type="text" value="넷플릭스 감상"></td>
+
+		</tr>
+
+		<tr>
+
+			<th id="hp" style="text-align: right;">휴대폰</th>
+			<td id="hp2"><input type="text" size="5" value="010">- <input
+				type="text" size="10" value="9395">- <input type="text" size="10" value="0865">
+			</td>
+			<th id="mail" style="text-align: left;">메일</th>
+			<td id="mail2"><input type="email" size="30" value=""> @ <select
+				id="email">
+					<option value="naver.com">naver.com</option>
+					<option value="gmail.com">gmail.com</option>
+					<option value="hyundaimovex.com" selected>hyundaimovex.com</option>
+
+			</select></td>
+
+		</tr>
+		<tr>
+			<td colspan="5">*본인 장단점 (CSS 적용 시 내부 스타일 방식 적용)</td>
+		</tr>
+		<tr>
+
+			<th>장점</th>
+			<td colspan="4" class="strength">
+				<ul>
+					<li id="str">새로운 것을 접하는데 두려워하지 않고 일에 성실하게 임합니다.</li>
+
+				</ul> <!-- <textarea class="strength"  ></textarea> -->
+
+			</td>
+		</tr>
+		<tr>
+			<th>단점</th>
+			<td colspan="4">
+				<div class="weak">
+					<ul>
+						<li id="weak">계획한 바로 일이 실행되지 않으면 우왕좌왕하는 면이 있습니다.</li>
+
+					</ul>
+				</div>
+			</td>
+		</tr>
+
+		<tr>
+			<td id="afterone" colspan="5">*1년후 나의 모습(CSS적용 시 외부 스타일 방식 적용)
+				최대 입력 가능한 숫자는 100자입니다</td>
+		</tr>
+		<tr id="lastRow">
+			<td colspan="5"><textarea class="afterYear">
+				1년 후 나의 모습은 나름 어엿한 직장인 1년차의 모습일 것입니다. 
+				또한, 회계 ERP 시스템 담당자로서 전반적인 모듈을 깨우치고 업무에 도움이 될 것입니다.
+			
+			</textarea></td>
+		</tr>
+
+
+
+		<hr>
+	</table>
+
+
+</body>
+</html>
