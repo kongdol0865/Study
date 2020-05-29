@@ -2,7 +2,7 @@
 
 ### 1. SQL Syntax
 
-![image-20200528115437624](../JavaScript%20&%20jQuery/image-20200528115437624.png)
+![image-20200528115437624](image/image-20200528115437624.png)
 
 #### (1)select *
 
@@ -145,7 +145,7 @@ WHERE c.CompanyName='Around the Horn' AND c.CustomerID=o.CustomerID;
 
 #### (17)Join
 
-![image-20200528142159986](../JavaScript%20&%20jQuery/image-20200528142159986.png)
+![image-20200528142159986](image/image-20200528142159986.png)
 
 ```mssql
 --(inner) join
