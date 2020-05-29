@@ -419,3 +419,86 @@ begin
 SELECT * FROM Customers -- WHERE City='Berlin';
 ```
 
+### 2. Procedure
+
+쿼리문의 집합, 어떤 동작을 일괄적으로 처리할 때 사용한다
+
+![image-20200529160807278](image/image-20200529160807278.png)
+
+```mssql
+@입력매개변수이름 데이터형식 [=디폴트값]
+@출력매개변수이름 데이터형식 OUTPUT
+
+EXECUTE 프로시저이름 @변수명 OUTPUT
+
+```
+
+```mssql
+create procedure usp_users1
+	@city NVARCHAR(10)
+as
+	select * from Customers where City=@city
+go
+
+exec usp_users1 'London'
+```
+
+- 변수에 DEFAULT 값 설정하기
+
+```mssql
+create procedure usp_users3
+	@city NVARCHAR(10)='LONDON',
+	@country NVARCHAR(10)='UK'
+as
+	select * from Customers where City=@city AND Country=@country
+go
+
+exec usp_users3 'London','UK'
+```
+
+- 출력 매개변수
+
+```mssql
+create procedure usp_users4
+	@city NVARCHAR(10)='LONDON',
+	@country NVARCHAR(10) OUTPUT
+as
+	insert into testTbl values(@city)
+	select @country = IDENT_CURRENT('testTbl');
+
+
+	--select * from Customers where City=@city AND Country=@country
+go
+
+create table testTbl (id INT IDENTITY, txt NCHAR(10));
+go
+
+declare @myValue INT;
+EXEC usp_users4 '테스트값', @myValue OUTPUT;
+PRINT '현재 입력된 ID 값 -->'+cast(@myValue as char(5));
+```
+
+- IF, ELSE문 활용하기
+
+```mssql
+create procedure usp_users7
+	@userID INT
+AS
+	declare @kkk int
+	select @kkk = ShipVia from Orders
+	where EmployeeID= @userID;
+
+	if (@kkk > 2)
+		begin
+			print '3'
+		end
+	else
+		begin
+			print '달라요'
+		end
+
+GO
+
+exec usp_users7 3
+```
+
