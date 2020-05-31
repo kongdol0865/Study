@@ -120,6 +120,7 @@ select * from Customers
 where City not like '[bsp]%'
 ```
 
+
 #### (14)In 
 
 ```mssql
