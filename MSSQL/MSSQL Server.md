@@ -120,7 +120,6 @@ select * from Customers
 where City not like '[bsp]%'
 ```
 
-
 #### (14)In 
 
 ```mssql
@@ -160,8 +159,8 @@ join Customers b on a.CustomerID = b. CustomerID
 
 ```mssql
 select a.OrderID, b.CompanyName, a.OrderDate  
-from Orders a 
-inner join Customers b on a.CustomerID = b. CustomerID
+from (Orders a 
+inner join Customers b on a.CustomerID = b. CustomerID)
 join Shippers c on a.ShipVia= c.ShipperID
 ```
 
@@ -444,7 +443,7 @@ go
 exec usp_users1 'London'
 ```
 
-- 변수에 DEFAULT 값 설정하기
+#### 변수에 DEFAULT 값 설정하기
 
 ```mssql
 create procedure usp_users3
@@ -457,7 +456,7 @@ go
 exec usp_users3 'London','UK'
 ```
 
-- 출력 매개변수
+#### 출력 매개변수
 
 ```mssql
 create procedure usp_users4
@@ -479,13 +478,13 @@ EXEC usp_users4 '테스트값', @myValue OUTPUT;
 PRINT '현재 입력된 ID 값 -->'+cast(@myValue as char(5));
 ```
 
-- IF, ELSE문 활용하기
+#### IF, ELSE문 활용하기
 
 ```mssql
 create procedure usp_users7
 	@userID INT
 AS
-	declare @kkk int
+	declare @kkk INT
 	select @kkk = ShipVia from Orders
 	where EmployeeID= @userID;
 
@@ -503,3 +502,122 @@ GO
 exec usp_users7 3
 ```
 
+#### 프로시저 생성 구문
+
+```mssql
+CREATE PROCEDURE 프로시저名
+ @SiteCD varchar(10) ,   
+ @result int output 
+AS 
+SET NOCOUNT ON 
+Go
+
+Declare
+@result int
+exec 프로시저名 '변수값' , @result output
+print @result
+```
+
+![KakaoTalk_20200601_004202826](image/KakaoTalk_20200601_004202826.png)
+
+  ```mssql
+create proc usp_Case
+	@username VARCHAR(20)
+AS
+	DECLARE @year INT
+	DECLARE @tti VARCHAR(3)
+	SELECT @year= birthYear from user
+		where name=@usernam;
+	set @tti= 
+		case
+        	when () then '원숭이'
+        	else
+        	
+        	
+		end;
+		print @username + '의 띠'+@tti
+GO
+  ```
+
+#### Cursor 한 행 처리
+
+![KakaoTalk_20200601_004203359](image/KakaoTalk_20200601_004203359.png)
+
+![KakaoTalk_20200601_004204161](image/KakaoTalk_20200601_004204161.png)
+
+#### return 하는 프로시져
+
+- userid가 있는지 없는지
+  - return 값은 정수만 가능
+
+```mssql
+CREATE PROCEDURE 프로시저名
+ @username varchar(10)   
+
+AS 
+	declare @userID char(8);
+	select @userID= userID FROM userTbl
+				where name=@username;
+	if(@userID <>'')
+		RETURN 0;//성공일경우
+	ELSE
+		RETURN -1;
+
+Go
+
+DECLARE @retval INT;
+EXEC @retval=프로시저명 '은지원'
+SELECT @retval;
+```
+
+#### try, catch문
+
+```mssql
+CREATE PROCEDURE 프로시저名
+ @username varchar(10)   
+
+AS 
+	declare @userID char(8);
+	BEGIN TRY
+		
+	END TRY
+	
+	BEGIN CATCH
+	
+	END CATCH
+Go
+
+EXEC 프로시저명 '은지원','EHE'
+
+```
+
+#### 암호화한 프로시저
+
+![KakaoTalk_20200601_004204859](image/KakaoTalk_20200601_004204859-1590980698929.png)
+
+- 임시 저장 프로시저 (쿼리창 닫으면 사용 못함)
+
+![KakaoTalk_20200601_004204457](image/KakaoTalk_20200601_004204457.png)
+
+#### Table 타입
+
+![KakaoTalk_20200601_004205168](image/KakaoTalk_20200601_004205168.png)
+
+- 프로시저 이름 정할때는 usp_로 시작하는게 좋다
+- 프로시저를 실행시에 첫번째만 최적화 및 컴파일을 수행하고,
+
+​       나머지는 메모리(캐시)의 것을 사용하게 된다
+
+#### 사용자 정의 함수
+
+![KakaoTalk_20200601_004201487](image/KakaoTalk_20200601_004201487.png)
+
+```mssql
+select dbo.ufn_getAge(1979);
+
+drop function ufn_getAge //함수 제거
+```
+
+- 인라인 테이블 반환 함수
+
+![KakaoTalk_20200601_004201018](image/KakaoTalk_20200601_004201018.png)
