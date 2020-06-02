@@ -80,6 +80,12 @@ rollback
 #### (9)Select Top
 
 ```mssql
+SELECT TOP number|percent column_name(s)
+FROM table_name
+WHERE condition;
+```
+
+```mssql
 select top 10 * from Customers
 select top 50 percent * from Customers
 ```
@@ -121,6 +127,8 @@ where City not like '[bsp]%'
 ```
 
 #### (14)In 
+
+- The IN operator is a shorthand for multiple OR conditions.
 
 ```mssql
 select * from Customers
