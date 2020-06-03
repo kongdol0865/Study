@@ -50,10 +50,13 @@ VALUES ('SM','Samsung','Seoul','ko');
 
 null 과 빈 문자열은 다름
 
+- 빈 문자열 = ''
+- null 은 IS NULL
+
 ```mssql
 select * from dbo.Employees
 where Region is not null --is null
--- where Region != ''
+-- where Region != '' 
 ```
 
 #### (7) SQL Update
@@ -426,6 +429,45 @@ begin
 */
 SELECT * FROM Customers -- WHERE City='Berlin';
 ```
+
+#### (33) delete문
+
+```mssql
+delete from 테이블명 where 조건문
+```
+
+#### (34) drop문
+
+```mssql
+drop table table_name;
+drop database database_name;
+```
+
+#### (35) alter table
+
+```mssql
+alter table Customers
+add email varchar(255);
+```
+
+```mssql
+alter table Customers
+alter comlumn email;
+```
+
+#### (36) case문
+
+```mssql
+select CustomerName, City, Country
+from Customers
+order by
+(CASE
+ 	WHEN City IS NULL THEN Country
+ 	else City
+end);
+```
+
+
 
 ### 2. Procedure
 
